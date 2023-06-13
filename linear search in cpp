@@ -1,0 +1,46 @@
+#include <iostream>
+
+class Array {
+private:
+    int size;
+    int* elements;
+
+public:
+    Array(int arr[], int n) {
+        size = n;
+        elements = new int[size];
+        for (int i = 0; i < size; i++) {
+            elements[i] = arr[i];
+        }
+    }
+
+    int linearSearch(int key) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i] == key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
+
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    Array array(arr, n);
+
+    int key;
+    std::cout << "Enter key to search: ";
+    std::cin >> key;
+
+    int index = array.linearSearch(key);
+
+    if (index != -1) {
+        std::cout << "Key found at index " << index << std::endl;
+    } else {
+        std::cout << "Key not found" << std::endl;
+    }
+
+    return 0;
+}
