@@ -1,0 +1,40 @@
+#include <iostream>
+
+class SearchAlgorithm {
+public:
+    static int binarySearch(int arr[], int size, int target) {
+        int left = 0;
+        int right = size - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid] == target) {
+                return mid;
+            } else if (arr[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+};
+
+int main() {
+    int arr[] = { 2, 5, 7, 10, 14, 18, 22, 30 };
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 18;
+
+    int binarySearchIndex = SearchAlgorithm::binarySearch(arr, size, target);
+
+    std::cout << "Binary Search: ";
+    if (binarySearchIndex != -1) {
+        std::cout << "Element found at index " << binarySearchIndex ;
+    } else {
+        std::cout << "Element not found." ;
+    }
+
+    return 0;
+}
+
