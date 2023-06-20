@@ -1,22 +1,11 @@
 #include <iostream>
+#include <chrono>
 
-class Array {
-private:
-    int size;
-    int* elements;
-
+class linear {
 public:
-    Array(int arr[], int n) {
-        size = n;
-        elements = new int[size];
+    static int linearSearch(const int* arr, int size, int target) {
         for (int i = 0; i < size; i++) {
-            elements[i] = arr[i];
-        }
-    }
-
-    int linearSearch(int key) {
-        for (int i = 0; i < size; i++) {
-            if (elements[i] == key) {
+            if (arr[i] == target) {
                 return i;
             }
         }
@@ -25,22 +14,26 @@ public:
 };
 
 int main() {
-    int arr[] = {10, 20, 30, 40, 50};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int arr[] = { 2, 5, 7, 10, 14, 18, 22, 30 };
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 18;
 
-    Array array(arr, n);
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+    int linearSearchIndex = linear::linearSearch(arr, size, target);
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
-    int key;
-    std::cout << "Enter key to search: ";
-    std::cin >> key;
-
-    int index = array.linearSearch(key);
-
-    if (index != -1) {
-        std::cout << "Key found at index " << index << std::endl;
+    std::cout << "Linear Search: ";
+    if (linearSearchIndex != -1) {
+        std::cout << "Element found at index " << linearSearchIndex << std::endl;
     } else {
-        std::cout << "Key not found" << std::endl;
+        std::cout << "Element not found." << std::endl;
     }
+
+    std::chrono::duration<double, std::nano> duration = end - start;
+    std::cout << "Time taken: " << duration.count() << " nanoseconds" << std::endl;
 
     return 0;
 }
+
+
+
