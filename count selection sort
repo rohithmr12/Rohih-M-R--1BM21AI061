@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+#include <random>
+
+int selectionSortComparisonCount(std::vector<int>& arr) {
+    int size = arr.size();
+    int comparisonCount = 0;
+
+    for (int i = 0; i < size - 1; i++) {
+        int minIndex = i;
+
+        for (int j = i + 1; j < size; j++) {
+            comparisonCount++;
+
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+    }
+
+    return comparisonCount;
+}
+
+int main() {
+    int numElements;
+    std::cout << "Enter the number of elements in the array: ";
+    std::cin >> numElements;
+
+    // Generate a random array of numbers
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1, 1000);
+
+    std::vector<int> arr(numElements);
+    for (int i = 0; i < numElements; i++) {
+        arr[i] = dist(gen);
+    }
+
+    int comparisonCount = selectionSortComparisonCount(arr);
+    std::cout << "Number of comparisons: " << comparisonCount << std::endl;
+
+    return 0;
+}
+
