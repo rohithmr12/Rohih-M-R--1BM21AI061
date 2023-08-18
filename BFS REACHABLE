@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+void bfs(const vector<vector<int>>& graph, int source, vector<bool>& visited) {
+    queue<int> q;
+    q.push(source);
+    visited[source] = true;
+
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+
+        for (int neighbor : graph[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                q.push(neighbor);
+            }
+        }
+    }
+}
+
+int main() {
+    vector<vector<int>> graph = {
+        {1, 2},
+        {0, 3},
+        {0, 3},
+        {1, 2, 4},
+        {3}
+    };
+
+    int sourceNode = 0; // Choose your source node here
+
+    vector<bool> visited(graph.size(), false);
+    bfs(graph, sourceNode, visited);
+
+    cout << "Nodes reachable from node " << sourceNode << " are:";
+    for (int i = 0; i < graph.size(); ++i) {
+        if (visited[i]) {
+            cout << " " << i;
+        }
+    }
+    cout << endl;
+
+    return 0;
+}
+
