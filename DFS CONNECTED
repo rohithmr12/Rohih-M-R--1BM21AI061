@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void dfs(const vector<vector<int>>& graph, int node, vector<bool>& visited) {
+    visited[node] = true;
+
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            dfs(graph, neighbor, visited);
+        }
+    }
+}
+
+int main() {
+    vector<vector<int>> graph = {
+        {1, 2},
+        {0, 3},
+        {0, 3},
+        {1, 2, 4},
+        {3}
+    };
+
+    vector<bool> visited(graph.size(), false);
+
+    dfs(graph, 0, visited);
+
+    bool isConnected = true;
+    for (bool nodeVisited : visited) {
+        if (!nodeVisited) {
+            isConnected = false;
+            break;
+        }
+    }
+
+    if (isConnected) {
+        cout << "The graph is connected." << endl;
+    } else {
+        cout << "The graph is not connected." << endl;
+    }
+
+    return 0;
+}
+
